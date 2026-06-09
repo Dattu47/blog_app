@@ -35,14 +35,14 @@ if firebase_config_str is None:
     try:
         with open('firebase_config.json', 'r') as f:
             config_dict = json.load(f)
-        print("✅ Loaded Firebase config from local file")
+        print("[OK] Loaded Firebase config from local file")
     except FileNotFoundError:
         raise ValueError("Firebase config not found. Either set FIREBASE_CONFIG_JSON environment variable or place firebase_config.json in the project directory.")
 else:
     # For production (Render), load from environment variable
     config_dict = json.loads(firebase_config_str)
     config_dict["private_key"] = config_dict["private_key"].replace("\\n", "\n")
-    print("✅ Loaded Firebase config from environment variable")
+    print("[OK] Loaded Firebase config from environment variable")
 
 cred = credentials.Certificate(config_dict)
 firebase_admin.initialize_app(cred)
